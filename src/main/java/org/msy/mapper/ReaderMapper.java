@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2023/2/9  14:27
  */
 public interface ReaderMapper {
-    List<Reader> queryAll();
+
 
     List<Book> queryCourse();
 
@@ -27,4 +27,6 @@ public interface ReaderMapper {
     void updateReader(Reader reader);
 
     void delete(String id);
+
+    List<Reader> queryAll(@Param("name") String mohu_name, @Param("hobby") String mohu_hobby);
 }

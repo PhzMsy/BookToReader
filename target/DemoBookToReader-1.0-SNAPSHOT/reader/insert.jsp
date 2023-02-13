@@ -17,6 +17,7 @@
                 data:{m:"queryCourseForAjax"},
                 dataType:"json",
                 success:function (resp){
+                    console.log(resp)
                     for(let course of resp){
                         $("#cla").append("<input type='checkbox' name='cids' class='cids' value="+course.id+">"+course.name);
                     }

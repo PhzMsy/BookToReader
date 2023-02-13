@@ -21,6 +21,7 @@ import java.util.List;
 @WebServlet("/reader")
 public class ReaderServlet extends HttpServlet {
     ReaderService readerService = new ReaderServiceImpl();
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
@@ -29,17 +30,17 @@ public class ReaderServlet extends HttpServlet {
 
         String m = req.getParameter("m");
 
-        if ("query".equals(m)){
-            query(req,resp);
-        }else if ("insert".equals(m)){
-            insert(req,resp);
-        }else if ("queryCourseForAjax".equals(m)){
-            queryCourseForAjax(req,resp);
-        }else if ("queryById".equals(m)) {
+        if ("query".equals(m)) {
+            query(req, resp);
+        } else if ("insert".equals(m)) {
+            insert(req, resp);
+        } else if ("queryCourseForAjax".equals(m)) {
+            queryCourseForAjax(req, resp);
+        } else if ("queryById".equals(m)) {
             queryById(req, resp);
-        }else if ("update".equals(m)) {
+        } else if ("update".equals(m)) {
             update(req, resp);
-        }else if ("delete".equals(m)) {
+        } else if ("delete".equals(m)) {
             delete(req, resp);
         }
 
@@ -48,7 +49,7 @@ public class ReaderServlet extends HttpServlet {
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String id = req.getParameter("id");
         int i = readerService.delete(id);
-        resp.getWriter().print(i>0);
+        resp.getWriter().print(i > 0);
     }
 
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -58,8 +59,8 @@ public class ReaderServlet extends HttpServlet {
         String age = req.getParameter("age");
         String[] cids = req.getParameterValues("cids");
         Reader reader = new Reader(id, name, hobby, age);
-        int i = readerService.update(reader,cids);
-        resp.getWriter().print(i>0);
+        int i = readerService.update(reader, cids);
+        resp.getWriter().print(i > 0);
     }
 
     private void queryById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -83,14 +84,19 @@ public class ReaderServlet extends HttpServlet {
         String age = req.getParameter("age");
         String[] cids = req.getParameterValues("cids");
         Reader reader = new Reader(null, name, hobby, age);
-        int i = readerService.insertReader(reader,cids);
+        int i = readerService.insertReader(reader, cids);
         resp.getWriter().print(i > 0);
     }
 
     private void query(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Reader> list = readerService.queryAll();
-        req.setAttribute("list",list);
-        req.getRequestDispatcher("reader/list.jsp").forward(req,resp);
+        String mohu_name = req.getParameter("mohu_name");
+        String mohu_hobby = req.getParameter("mohu_hobby");
+        List<Reader> list = readerService.queryAll(mohu_name,mohu_hobby);
+
+        req.setAttribute("list", list);
+        req.setAttribute("mohu_name", mohu_name);
+        req.setAttribute("mohu_hobby", mohu_hobby);
+        req.getRequestDispatcher("reader/list.jsp").forward(req, resp);
 
     }
 }

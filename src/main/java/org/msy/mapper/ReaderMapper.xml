@@ -7,6 +7,7 @@
         <result property="name" column="reader_name"/>
         <result property="age" column="reader_age"/>
         <result property="hobby" column="reader_hobby"/>
+        <association property="country" column="cid" javaType="country" select="queryCountryByCid" fetchType="lazy"/>
         <collection property="bkRrList" column="ri" ofType="bkRr">
             <id property="id" column="bid"/>
             <association property="book" javaType="book">
@@ -15,12 +16,27 @@
             </association>
         </collection>
     </resultMap>
+    <select id="queryCountryByCid" resultType="country">
+        select * from country where id =#{cid}
+    </select>
 
     <select id="queryAll" resultMap="BTR">
-        select r.*, b.book_name bn, bk.book_id bi, bk.id bid, bk.reader_id ri
+        select r.*, b.book_name bn, bk.book_id bi, bk.id bid, bk.reader_id ri, c.id cid
         from reader r
                  join bkrr bk on r.reader_id = bk.reader_id
                  join book b on bk.book_id = b.book_id
+                 join country c on c.id = r.reader_cid
+        <where>
+            <if test="name != null and name != ''">
+                and r.reader_name = #{name}
+            </if>
+
+            <if test="hobby!=null and hobby != ''">
+                and r.reader_hobby = #{hobby}
+            </if>
+
+        </where>
+        order by r.reader_id
     </select>
 
     <select id="queryCourse" resultType="org.msy.bean.Book">
@@ -37,10 +53,11 @@
     </insert>
 
     <select id="queryById" resultMap="BTR">
-        select r.*, b.book_name bn, bk.book_id bi, bk.id bid, bk.reader_id ri
+        select r.*, b.book_name bn, bk.book_id bi, bk.id bid, bk.reader_id ri,c.id cid
         from reader r
                  join bkrr bk on r.reader_id = bk.reader_id
                  join book b on bk.book_id = b.book_id
+                 join country c on c.id = r.reader_cid
         where r.reader_id = #{id};
     </select>
 

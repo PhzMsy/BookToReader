@@ -38,21 +38,33 @@
     </script>
 </head>
 <body>
+<form action="<%=request.getContextPath()%>/reader?m=query" method="post">
+    姓名 : <input type="text" name="mohu_name" value="${mohu_name}" id="mohu_name"/>
+    爱好 : <input type="radio" name="mohu_hobby" value="出师表" class="mohu_hobby" ${mohu_hobby=='出师表'?'checked':''}>出师表
+    <input type="radio" name="mohu_hobby" value="七步诗" class="mohu_七步诗" ${mohu_hobby=='七步诗'?'checked':''}>七步诗
+    <input type="submit" value="查询"/>
+</form>
 <table>
     <tr>
-        <td></td>
+        <td>
+            <input type="checkbox" id="ck">
+
+        </td>
         <td>编号</td>
         <td>姓名</td>
-        <td>性别</td>
+        <td>爱好</td>
         <td>年龄</td>
         <td>所选课程</td>
         <td>
             <input type="button" value="添加" id="insert"/>
+
         </td>
     </tr>
     <c:forEach items="${list}" var="s">
         <tr>
-            <td></td>
+            <td>
+                <input type="checkbox" class="cks" value="${s.id}">
+            </td>
             <td>${s.id}</td>
             <td>${s.name}</td>
             <td>${s.hobby}</td>

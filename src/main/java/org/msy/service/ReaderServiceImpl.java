@@ -31,11 +31,6 @@ public class ReaderServiceImpl implements ReaderService {
 
 
     @Override
-    public List<Reader> queryAll() {
-        return mapper.queryAll();
-    }
-
-    @Override
     public List<Book> queryCourse() {
         return mapper.queryCourse();
     }
@@ -56,6 +51,16 @@ public class ReaderServiceImpl implements ReaderService {
             e.printStackTrace();
         }
         return i;
+    }
+
+    /**
+     * 接口实现类可以重写 参数列表不同
+     * @param reader
+     * @return
+     */
+    @Override
+    public int insertReader(Reader reader) {
+        return 0;
     }
 
     @Override
@@ -98,6 +103,11 @@ public class ReaderServiceImpl implements ReaderService {
         }
 
         return i;
+    }
+
+    @Override
+    public List<Reader> queryAll(String mohu_name, String mohu_hobby) {
+        return mapper.queryAll(mohu_name,mohu_hobby);
     }
 
     private void deleteBkRrById(String s) {

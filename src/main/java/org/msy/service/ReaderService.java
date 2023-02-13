@@ -11,12 +11,11 @@ import java.util.List;
  */
 public interface ReaderService {
 
-
-    List<Reader> queryAll();
-
     List<Book> queryCourse();
 
     int insertReader(Reader reader, String[] cids);
+
+    int insertReader(Reader reader);
 
     Reader queryById(int id);
 
@@ -24,4 +23,5 @@ public interface ReaderService {
 
     int delete(String id);
 
+    List<Reader> queryAll(String mohu_name, String mohu_hobby);
 }
