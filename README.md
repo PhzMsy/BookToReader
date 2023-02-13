@@ -1,4 +1,4 @@
-附加三个表
+附加四个表
 -- auto-generated definition
 create table bkrr
 (
@@ -23,5 +23,14 @@ create table reader
     reader_name  varchar(255) null,
     reader_hobby varchar(255) null,
     reader_age   varchar(255) null
+);
+
+
+-- auto-generated definition
+create table country
+(
+id      int          not null
+primary key,
+country varchar(255) null
 );
 
