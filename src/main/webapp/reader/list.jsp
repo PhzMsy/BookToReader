@@ -34,6 +34,25 @@
                     }
                 });
             });
+
+            //radio点击前的选中状态
+            var _is_checked_ = false;
+            $("input[type=radio]").mousedown(function () {
+                //记录radio点击前的选中状态
+                _is_checked_ = $(this).prop("checked");
+            }).click(function (e) {
+                var iput = $(this);
+                if (_is_checked_) {
+                    //如果radio点击前是选中状态，则取消选中
+                    iput.prop("checked", false);
+                }
+            });
+            $("input[type=radio]").parent().click(function (e) {
+                //记录radio外label被点时radio的选中状态
+                _is_checked_ = $(this).children("input:first").prop("checked");
+            });
+
+
         });
     </script>
 </head>
@@ -41,7 +60,8 @@
 <form action="<%=request.getContextPath()%>/reader?m=query" method="post">
     姓名 : <input type="text" name="mohu_name" value="${mohu_name}" id="mohu_name"/>
     爱好 : <input type="radio" name="mohu_hobby" value="出师表" class="mohu_hobby" ${mohu_hobby=='出师表'?'checked':''}>出师表
-    <input type="radio" name="mohu_hobby" value="七步诗" class="mohu_七步诗" ${mohu_hobby=='七步诗'?'checked':''}>七步诗
+    <input type="radio" name="mohu_hobby" value="七步诗" class="mohu_hobby" ${mohu_hobby=='七步诗'?'checked':''}>七步诗
+    <input type="radio" name="mohu_hobby" value="" class="mohu_hobby">清空
     <input type="submit" value="查询"/>
 </form>
 <table>
@@ -64,6 +84,9 @@
         <tr>
             <td>
                 <input type="checkbox" class="cks" value="${s.id}">
+            </td>
+            <td>
+                <a href="details.jsp?id="${s.id}>${s.name}</a>
             </td>
             <td>${s.id}</td>
             <td>${s.name}</td>

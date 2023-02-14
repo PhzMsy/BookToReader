@@ -16,9 +16,9 @@
             </association>
         </collection>
     </resultMap>
-    <select id="queryCountryByCid" resultType="country">
-        select * from country where id =#{cid}
-    </select>
+        <select id="queryCountryByCid" resultType="country">
+            select * from country where id =#{cid}
+        </select>
 
     <select id="queryAll" resultMap="BTR">
         select r.*, b.book_name bn, bk.book_id bi, bk.id bid, bk.reader_id ri, c.id cid
@@ -34,6 +34,7 @@
             <if test="hobby!=null and hobby != ''">
                 and r.reader_hobby = #{hobby}
             </if>
+
 
         </where>
         order by r.reader_id

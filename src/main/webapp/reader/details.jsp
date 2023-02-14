@@ -28,6 +28,7 @@
                 url:"../reader?m=queryById&id="+id,
                 dataType:"json",
                 success:function (resp){
+                    console.log(resp);
                     $("#id").val(resp.id);
                     $("#name").val(resp.name);
                     $("#age").val(resp.age);
